@@ -44,8 +44,8 @@ namespace DataEntryApp.Forms.Sales
             {
                 int? lineItemId = 0;
                 lineItemId = Convert.ToInt32(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Id"].Value);
-                MessageBox.Show(lineItemId.ToString());
                 var salesDetail = new SalesDetail();
+                DateTime? date = null;
                 if(lineItemId > 0)
                 {
                     salesDetail = dataContext.SalesDetails.Where(_ => _.Id == lineItemId).Single();
@@ -53,20 +53,25 @@ namespace DataEntryApp.Forms.Sales
                 else
                 {
                     dataContext.SalesDetails.Add(salesDetail);
-                    salesDetail.IsActive = 1;
+                    salesDetail.IsActive = true;
                     salesDetail.CreatedDate = DateTime.Now;
                 }
-                salesDetail.Date = Convert.ToDateTime(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Date"].Value);
+                if(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Date"].Value != null)
+                {
+                    date = Convert.ToDateTime(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Date"].Value);
+                }
+                salesDetail.Date = date;
                 salesDetail.CustomerName = Convert.ToString(DataGridDataGridMaster.Rows[e.RowIndex].Cells["CustomerName"].Value);
                 salesDetail.Item = Convert.ToString(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Item"].Value);
                 salesDetail.SetDetails = Convert.ToString(DataGridDataGridMaster.Rows[e.RowIndex].Cells["SetDetails"].Value);
-                salesDetail.Weight = Convert.ToDecimal(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Weight"].Value);
-                salesDetail.Rate = Convert.ToDecimal(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Rate"].Value);
-                salesDetail.TotalAmount = Convert.ToDecimal(DataGridDataGridMaster.Rows[e.RowIndex].Cells["TotalAmount"].Value);
+                salesDetail.Weight = Convert.ToDecimal(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Weight"]?.Value);
+                salesDetail.Rate = Convert.ToDecimal(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Rate"]?.Value);
+                salesDetail.TotalAmount = salesDetail.Weight * salesDetail.Rate;
                 salesDetail.DRCR = Convert.ToString(DataGridDataGridMaster.Rows[e.RowIndex].Cells["DRCR"].Value);
                 salesDetail.Notes = Convert.ToString(DataGridDataGridMaster.Rows[e.RowIndex].Cells["Notes"].Value);
                 dataContext.SaveChanges();
                 DataGridDataGridMaster.Rows[e.RowIndex].Cells["Id"].Value = salesDetail.Id;
+                DataGridDataGridMaster.Rows[e.RowIndex].Cells["TotalAmount"].Value = salesDetail.TotalAmount;
             }
         }
     }

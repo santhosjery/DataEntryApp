@@ -9,7 +9,7 @@ namespace DataEntryApp
 {
     public static class Utility
     {
-        private const string _connectionString = "data source=SANTHON-LR0D1A0;initial catalog=Herbal;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;";
+        private const string _connectionString = "data source=SANTHON-LR0D1A0;initial catalog=DataEntry;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;";
 
         /// <summary>
         /// List page header style
@@ -27,7 +27,7 @@ namespace DataEntryApp
             // Check app config and set the appropriate DBModel
             entityBuilder.Provider = "System.Data.SqlClient";
             entityBuilder.ProviderConnectionString = _connectionString + ";MultipleActiveResultSets=True;App=EntityFramework;";
-            entityBuilder.Metadata = @"res://*/Models.HerbalModel.csdl|res://*/Models.HerbalModel.ssdl|res://*/Models.HerbalModel.msl";
+            entityBuilder.Metadata = @"res://*/Models.DataEntry.csdl|res://*/Models.DataEntry.ssdl|res://*/Models.DataEntry.msl";
             return entityBuilder.ToString();
         }
     }

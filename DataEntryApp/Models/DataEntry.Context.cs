@@ -19,7 +19,12 @@ namespace DataEntryApp.Models
             : base("name=DataEntryEntities")
         {
         }
-    
+
+        public DataEntryEntities(string connectionString)
+            : base(connectionString)
+        {
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
