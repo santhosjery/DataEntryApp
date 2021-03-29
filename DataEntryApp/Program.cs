@@ -1,4 +1,5 @@
 ﻿using DataEntryApp.Forms.Sales;
+using DataEntryApp.Forms.SalesList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace DataEntryApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataEntry());
+            Application.Run(new SalesList());
         }
     }
 }
